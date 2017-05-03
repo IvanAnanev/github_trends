@@ -10,14 +10,22 @@ defmodule GithubTrends.Repository do
     end
   end
 
-  def find(repository_id) when is_integer(repository_id) do
-    Amnesia.transaction do
-      Repository.read(repository_id)
+  def find(id) do
+    case Integer.parse(id) do
+      {repository_id, ""} -> find_by_id(repository_id)
+      _ -> find_by_name(id)
     end
   end
-  def find(repository_name) when is_bitstring(repository_name) do
+
+  defp find_by_id(id) when is_integer(id) do
     Amnesia.transaction do
-      match = Repository.match!(full_name: repository_name)
+      Repository.read(id)
+    end
+  end
+
+  defp find_by_name(name) when is_bitstring(name) do
+    Amnesia.transaction do
+      match = Repository.match!(full_name: name)
       case match do
         nil -> nil
         _ ->

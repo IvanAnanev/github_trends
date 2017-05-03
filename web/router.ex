@@ -19,8 +19,9 @@ defmodule GithubTrends.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", GithubTrends do
-  #   pipe_through :api
-  # end
+  scope "/api", GithubTrends.Api, as: :api do
+    pipe_through :api
+
+    resources "/repositories", RepositoryController, only: [:index, :show]
+  end
 end
