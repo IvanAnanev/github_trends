@@ -12,9 +12,7 @@ defmodule GithubTrends.Repository do
 
   def find(repository_id) when is_integer(repository_id) do
     Amnesia.transaction do
-      repository_id
-        |> Repository.read
-        |> wrap_to_map
+      Repository.read(repository_id)
     end
   end
   def find(repository_name) when is_bitstring(repository_name) do
@@ -24,7 +22,7 @@ defmodule GithubTrends.Repository do
         nil -> nil
         _ ->
           %{values: [repository|_]} = match
-          wrap_to_map(repository)
+          wrap_to_struct(repository)
       end
     end
   end
@@ -33,13 +31,13 @@ defmodule GithubTrends.Repository do
     Amnesia.transaction do
       %{values: values} = Repository.match!(_: "_")
       values
-        |> Enum.map(fn(x) -> wrap_to_map(x) end)
-        |> Enum.sort(&(&1[:stargazers_countid] >= &2[:stargazers_count]))
+        |> Enum.map(&wrap_to_struct/1)
+        |> Enum.sort(&(&1.stargazers_count >= &2.stargazers_count))
     end
   end
 
-  defp wrap_to_map({_, id, full_name, html_url, description, stargazers_count, language}) do
-    %{
+  defp wrap_to_struct({_, id, full_name, html_url, description, stargazers_count, language}) do
+    %Repository{
       id: id,
       full_name: full_name,
       html_url: html_url,
@@ -48,15 +46,4 @@ defmodule GithubTrends.Repository do
       language: language
     }
   end
-  defp wrap_to_map(%Repository{id: id, full_name: full_name, html_url: html_url, description: description, stargazers_count: stargazers_count, language: language}) do
-    %{
-      id: id,
-      full_name: full_name,
-      html_url: html_url,
-      description: description,
-      stargazers_count: stargazers_count,
-      language: language
-    }
-  end
-  defp wrap_to_map(_), do: nil
 end
