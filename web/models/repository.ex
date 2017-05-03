@@ -4,28 +4,24 @@ defmodule GithubTrends.Repository do
 
   def create_or_update(params) do
     Amnesia.transaction do
-      %Repository{
-        id: params[:id],
-        full_name: params[:full_name],
-        html_url: params[:html_url],
-        description: params[:description],
-        stargazers_count: params[:stargazers_count],
-        language: params[:language]
-      } |> Repository.write
+      Repository
+        |> struct(params)
+        |> Repository.write
     end
   end
 
   def find(repository_id) when is_integer(repository_id) do
     Amnesia.transaction do
-      Repository.read(repository_id)
+      repository_id
+        |> Repository.read
         |> wrap_to_map
     end
   end
-  def find(repository_name) when is_binary(repository_name) do
+  def find(repository_name) when is_bitstring(repository_name) do
     Amnesia.transaction do
       match = Repository.match!(full_name: repository_name)
       case match do
-        nil -> false
+        nil -> nil
         _ ->
           %{values: [repository|_]} = match
           wrap_to_map(repository)
@@ -62,5 +58,5 @@ defmodule GithubTrends.Repository do
       language: language
     }
   end
-  defp wrap_to_map(nil), do: false
+  defp wrap_to_map(_), do: nil
 end
