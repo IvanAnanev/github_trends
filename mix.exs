@@ -17,7 +17,7 @@ defmodule GithubTrends.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {GithubTrends, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext, :tentacat]]
+     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext, :tentacat, :amnesia]]
   end
 
   # Specifies which paths to compile per environment.
