@@ -1,4 +1,4 @@
-defmodule TrendsTake do
+defmodule GithubTrends.TrendsTake do
   alias GithubTrends.Repository
 
   @search_params %{q: "stars:>20000", sort: "stars"}
@@ -6,11 +6,13 @@ defmodule TrendsTake do
   @repository_saving_fields ["id", "full_name", "html_url", "description", "stargazers_count", "language"]
 
   def call do
+    IO.puts "take trends is call"
     @search_params
       |> Tentacat.Search.repositories(github_client())
       |> take_repositories
       |> Enum.map(&take_fields/1)
       |> Repository.bulk_write
+    IO.puts "take trends is done"
   end
 
   defp github_client do
