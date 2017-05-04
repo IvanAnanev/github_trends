@@ -52,7 +52,8 @@ exports.config = {
   // Configure your plugins
   plugins: {
     babel: {
-      presets: ["es2015", "react"],
+      plugins: ["babel-plugin-transform-class-properties"],
+      presets: ["env", "react"],
       // Do not use ES6 compiler in vendor code
       ignore: [/web\/static\/vendor/]
     }
