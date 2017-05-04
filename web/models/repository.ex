@@ -2,12 +2,16 @@ defmodule GithubTrends.Repository do
   use Amnesia
   use Database
 
-  def create_or_update(params) do
+  def bulk_write(list_repositories) do
     Amnesia.transaction do
-      Repository
-        |> struct(params)
-        |> Repository.write
+      Enum.each(list_repositories, &write(&1))
     end
+  end
+
+  defp write(params) do
+    Repository
+      |> struct(params)
+      |> Repository.write
   end
 
   def find(id) do
