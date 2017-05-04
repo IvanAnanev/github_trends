@@ -23,5 +23,7 @@ defmodule GithubTrends.Router do
     pipe_through :api
 
     resources "/repositories", RepositoryController, only: [:index, :show]
+
+    get "/force_take", ForceTakeController, :index
   end
 end
