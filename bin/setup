@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+set -e
+
+mix local.hex
+mix deps.get
+mix compile
+
+mix amnesia.create -d Database --disk
+
+npm install
