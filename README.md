@@ -8,8 +8,8 @@ Implement a service, which will
 
   * Check GitHub API every X minutes and pull trending repositories;
     * Trending - with most number of Stars;
-    * Please DO NOT user cron or anything like that; received repositories in the database
-  * Save received repositories in the database
+    * Please DO NOT user cron or anything like that;
+  * Save received repositories in the database;
     * We’re expecting you to choose the database and explain us your decision;
     * It could be PostgreSQL, Mnesia, etc.
 
@@ -17,7 +17,7 @@ Service should provide a public API with three endpoints
   1. Get a repository by name or ID;
   2. Get all repositories;
   3. Start sync with Github;
-    a. Force sync should reset the internal timer for automatic sync.
+    * Force sync should reset the internal timer for automatic sync.
 
 Provide us with the CLI client for this service, which uses the above-mentioned API.
 As an advanced level, build a simple SPA using ReactJS to work with yours API and do the same as CLI.
