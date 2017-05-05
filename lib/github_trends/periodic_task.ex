@@ -23,7 +23,7 @@ defmodule GithubTrends.PeriodicTask do
     timer = Process.send_after(self(), :work, @period)
     {:reply, :ok, %{timer: timer}}
   end
-  def handle_call(_, state) do
+  def handle_call(_, _, state) do
     {:ok, state}
   end
 
@@ -33,6 +33,10 @@ defmodule GithubTrends.PeriodicTask do
     {:noreply, %{timer: timer}}
   end
   def handle_info(_, state) do
+    {:ok, state}
+  end
+
+  def handle_cast(_, state) do
     {:ok, state}
   end
 end
