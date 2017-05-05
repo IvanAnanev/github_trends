@@ -12,7 +12,7 @@ defmodule GithubTrends.PeriodicTask do
     GenServer.call(__MODULE__, :retake_trends)
   end
 
-  def init(state) do
+  def init(_state) do
     timer = Process.send_after(self(), :work,  0)
     {:ok, %{timer: timer}}
   end
@@ -23,13 +23,15 @@ defmodule GithubTrends.PeriodicTask do
     timer = Process.send_after(self(), :work, @period)
     {:reply, :ok, %{timer: timer}}
   end
+  def handle_call(_, state) do
+    {:ok, state}
+  end
 
-  def handle_info(:work, state) do
+  def handle_info(:work, _state) do
     TrendsTake.call
     timer = Process.send_after(self(), :work, @period)
     {:noreply, %{timer: timer}}
   end
-
   def handle_info(_, state) do
     {:ok, state}
   end
