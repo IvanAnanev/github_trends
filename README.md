@@ -24,12 +24,11 @@ As an advanced level, build a simple SPA using ReactJS to work with yours API an
 
 ## Setup
 
-To start your Phoenix app:
+To setup app run:
 
-  * Install dependencies with `mix deps.get`
-  * Install Node.js dependencies with `npm install`
-  * Create Mnesia DB with `mix amnesia.create -d Database --disk`
-  * Start Phoenix endpoint with `mix phoenix.server`
+```bash
+bin/setup
+```
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
