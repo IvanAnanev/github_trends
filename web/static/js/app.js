@@ -1,13 +1,13 @@
-import React, { Component } from "react"
+import React, { PureComponent } from "react"
 import { render } from "react-dom"
-import TableLayout from "./components/table_layout"
+import Main from "./components/main"
 
-class Root extends Component {
+class Root extends PureComponent {
   render() {
     return (
       <div>
         <h1>Github trends</h1>
-        <TableLayout />
+        <Main/>
       </div>
     )
   }

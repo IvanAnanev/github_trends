@@ -1,21 +1,23 @@
 import React, { Component } from "react"
 import { Table } from "react-bootstrap"
 
-export default class TableLayout extends Component {
-  renderTr = (index) => {
+export default class TrendsIndex extends Component {
+  renderTr = (trend, index) => {
     return (
       <tr key={ index }>
-        <td>{ index }</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
+        <td>{ ++index }</td>
+        <td onClick={ this.props.showTrend } data-value={ trend.id }>
+          { trend.full_name }
+        </td>
+        <td>{ trend.stargazers_count }</td>
+        <td>{ trend.language }</td>
       </tr>
     )
   }
 
   renderCollection = () => {
-    return [1,1,1,1,1,1,1].map((item, index) => {
-      return this.renderTr(index);
+    return this.props.trends.map((item, index) => {
+      return this.renderTr(item, index);
     })
   }
 
