@@ -2,6 +2,10 @@
 
 set -e
 
+if [ ! -f config/dev.secret.exs ]; then
+  cp config/dev.secret.exs.example config/dev.secret.exs
+fi
+
 mix local.hex
 mix deps.get
 mix compile

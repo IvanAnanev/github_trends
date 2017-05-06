@@ -30,6 +30,14 @@ To setup app run:
 bin/setup
 ```
 
+After you need edit `config/dev.secrets.exs`
+
+To start app
+
+```bash
+mix phoenix.servr
+```
+
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 

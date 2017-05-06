@@ -8,7 +8,6 @@ use Mix.Config
 # Configures the endpoint
 config :github_trends, GithubTrends.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "S4UwFB+1WSNe47dWNrfTluRSR4JuMMRpOv02FoQN6maqD0EkWu7mgBvYS1IJ+2dG",
   render_errors: [view: GithubTrends.ErrorView, accepts: ~w(html json)],
   pubsub: [name: GithubTrends.PubSub,
            adapter: Phoenix.PubSub.PG2]
